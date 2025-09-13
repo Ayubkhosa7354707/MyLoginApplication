@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 import com.ayub.khosa.myloginapplication.model.USER
 import com.ayub.khosa.myloginapplication.room.ShopDAO
 
-@Database(entities = [ USER::class], version = 1, exportSchema = false)
+@Database(entities = [USER::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 

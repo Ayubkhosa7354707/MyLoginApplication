@@ -9,7 +9,6 @@ import retrofit2.http.POST
 interface ApiService {
 
 
-
     @FormUrlEncoded
     @POST("ecommerce-website-master/authmobile.php")
     suspend fun getSignup(

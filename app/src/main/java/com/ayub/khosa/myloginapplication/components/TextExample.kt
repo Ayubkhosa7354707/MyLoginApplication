@@ -2,7 +2,6 @@ package com.ayub.khosa.myloginapplication.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -27,8 +26,8 @@ fun TextExample(data_string: String) {
         // we are using column to align
         // our textview to center of the screen.
 
-                modifier = Modifier
-                .wrapContentSize(),
+        modifier = Modifier
+            .wrapContentSize(),
 
         // below line is used for specifying
         // horizontal arrangement.

@@ -2,7 +2,6 @@ package com.ayub.khosa.myloginapplication.api
 
 
 import android.webkit.CookieManager
-import com.ayub.khosa.myloginapplication.api.ApiService
 import com.ayub.khosa.myloginapplication.utils.PrintLogs
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

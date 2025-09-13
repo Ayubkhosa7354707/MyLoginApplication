@@ -7,9 +7,13 @@ import com.ayub.khosa.myloginapplication.api.ApiService
 import com.ayub.khosa.myloginapplication.model.APIResponce
 import com.ayub.khosa.myloginapplication.model.APIResponceUser
 import com.ayub.khosa.myloginapplication.model.USER
+import javax.inject.Inject
 
 
-class MainActivityRepository constructor(context: Context, private val apiService: ApiService) {
+class MainActivityRepository @Inject constructor(
+    context: Context,
+    private val apiService: ApiService
+) {
 
 
     var db: ShopDAO = AppDatabase.getInstance(context)?.shopDAO()!!

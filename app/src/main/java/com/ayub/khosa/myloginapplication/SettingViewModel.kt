@@ -7,23 +7,38 @@ import com.ayub.khosa.myloginapplication.model.USER
 import com.ayub.khosa.myloginapplication.room.MainActivityRepository
 import com.ayub.khosa.myloginapplication.utils.NetworkHelper
 import com.ayub.khosa.myloginapplication.utils.PrintLogs
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class SettingViewModel(private val repository: MainActivityRepository, private val networkHelper: NetworkHelper) :
+@HiltViewModel
+class SettingViewModel @Inject constructor(
+    private val repository: MainActivityRepository,
+    private val networkHelper: NetworkHelper
+) :
     ViewModel() {
 
 
     var user = MutableLiveData<USER>()
+    private val _uiState = MutableStateFlow("Initial state")
+    val uiState: StateFlow<String> = _uiState
+
+    fun updateState(newValue: String) {
+        _uiState.value = newValue
+    }
+
+    //
     val errorMessage = MutableLiveData<String>()
 
     val passMessage = MutableLiveData<String>()
 
     val _is_busy = MutableLiveData<Boolean>()
 
+
     init {
         PrintLogs.printD("SettingViewModel init")
-
     }
 
 
@@ -44,6 +59,9 @@ class SettingViewModel(private val repository: MainActivityRepository, private v
                             email, password
                         )
 
+                        updateState(response.toString())
+
+
                         PrintLogs.printD(" onResponse Success :  " + response.response)
                         PrintLogs.printD(" onResponse Success :  " + response.data)
                         PrintLogs.printD(" onResponse Success :  " + response.error)
@@ -61,10 +79,11 @@ class SettingViewModel(private val repository: MainActivityRepository, private v
                             addUserinDB(response.data)
                             passMessage.value = "OK" //goto next fragment
 
+
                         } else {
                             errorMessage.value = response.error
                         }
-                    }else{
+                    } else {
                         errorMessage.value = "No internet"
                     }
                 } else {
@@ -101,7 +120,7 @@ class SettingViewModel(private val repository: MainActivityRepository, private v
                     } else {
                         errorMessage.value = response.error
                     }
-                }else{
+                } else {
                     errorMessage.value = "No Internet ..."
                 }
                 _is_busy.value = false
@@ -173,8 +192,8 @@ class SettingViewModel(private val repository: MainActivityRepository, private v
                         } else {
                             errorMessage.value = response.error
                         }
-                    }else{
-                        errorMessage.value=" No Internet ..."
+                    } else {
+                        errorMessage.value = " No Internet ..."
                     }
                 } else {
                     errorMessage.value = "Exception  user email or password"
@@ -221,8 +240,8 @@ class SettingViewModel(private val repository: MainActivityRepository, private v
                         } else {
                             errorMessage.value = response.error
                         }
-                    }else{
-                        errorMessage.value=" No Intenet...."
+                    } else {
+                        errorMessage.value = " No Intenet...."
                     }
                 } else {
                     errorMessage.value = "Exception  user email  "

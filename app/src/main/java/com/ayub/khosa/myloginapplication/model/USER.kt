@@ -22,7 +22,7 @@ data class USER(
     @ColumnInfo(name = "tokenCode") var tokenCode: String,
 
     @ColumnInfo(name = "userStatus") var userStatus: String
-) :  Serializable
+) : Serializable
 
 
 

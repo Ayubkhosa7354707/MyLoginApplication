@@ -1,4 +1,5 @@
 package com.ayub.khosa.myloginapplication.model
+
 import com.google.gson.annotations.SerializedName
 
 data class APIResponceUser(
