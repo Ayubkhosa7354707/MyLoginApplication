@@ -54,6 +54,7 @@ class MainActivityRepository @Inject constructor(
         apiService.getLogin("btn-login", email, password)
 
     suspend fun is_logged_in(): APIResponce = apiService.is_logged_in("is_logged_in")
+    suspend fun userlogout(email: String) : APIResponce = apiService.userlogout("is_log_out",email)
 
 
     private class insertUSERAsyncTask(private val shopDAO: ShopDAO) :

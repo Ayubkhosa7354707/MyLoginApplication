@@ -40,4 +40,11 @@ interface ApiService {
     suspend fun is_logged_in(
         @Field("is_logged_in") is_logged_in: String
     ): APIResponce
+
+    @FormUrlEncoded
+    @POST("ecommerce-website-master/authmobile.php")
+    suspend fun userlogout(
+    @Field("_logout_server") is_logout: String,
+    @Field("lemail") email: String
+    ): APIResponce
 }
