@@ -5,8 +5,12 @@ import android.os.AsyncTask
 import com.ayub.khosa.emptyplaylistapplication.room.AppDatabase
 import com.ayub.khosa.myloginapplication.api.ApiService
 import com.ayub.khosa.myloginapplication.model.APIResponce
+import com.ayub.khosa.myloginapplication.model.APIResponceListPRODUCTS
 import com.ayub.khosa.myloginapplication.model.APIResponceUser
+import com.ayub.khosa.myloginapplication.model.ListPRODUCTS
+import com.ayub.khosa.myloginapplication.model.PRODUCT
 import com.ayub.khosa.myloginapplication.model.USER
+import com.ayub.khosa.myloginapplication.utils.PrintLogs
 import javax.inject.Inject
 
 
@@ -65,5 +69,62 @@ class MainActivityRepository @Inject constructor(
             return null
         }
     }
+
+
+
+    suspend fun getAllProducts(): APIResponceListPRODUCTS {
+
+        return apiService.get_ListPRODUCTS("ListPRODUCTS")
+    }
+
+
+    fun getProducts_DB(): ListPRODUCTS {
+
+        val response: List<PRODUCT> = db.gelAllProducts()
+        PrintLogs.printD("MainActivityRepository getProducts_DB  " + response.size)
+        var data = ArrayList<PRODUCT>()
+
+
+        for (i in response.indices) {
+            data.add(response[i])
+
+        }
+
+        val listPRODUCTS: ListPRODUCTS = ListPRODUCTS(data)
+
+        // val   apiResponceListPRODUCTS:APIResponceListPRODUCTS=APIResponceListPRODUCTS(listPRODUCTS,"Success","")
+        return listPRODUCTS
+    }
+
+    fun insertProductinDB(product: PRODUCT) {
+        insertAsyncTask(db).execute(product)
+    }
+
+    fun updateProductinDB(product: PRODUCT) {
+        db.updateProduct(product)
+    }
+
+    fun deleteProductinDB(product: PRODUCT) {
+        db.deleteProduct(product)
+    }
+
+    fun fetchByName(name: String, product_id: String): PRODUCT {
+        return db.fetchByName(name = name, product_id = product_id)
+    }
+
+    fun fetchProductByName(name: String, product_id: String): PRODUCT {
+        return db.fetchProductByName(name = name, product_id = product_id)
+    }
+
+
+    private class insertAsyncTask internal constructor(private val productsDao: ShopDAO) :
+        AsyncTask<PRODUCT, Void, Void>() {
+
+        override fun doInBackground(vararg params: PRODUCT): Void? {
+            productsDao.insertProduct(params[0])
+            return null
+        }
+    }
+
 
 }

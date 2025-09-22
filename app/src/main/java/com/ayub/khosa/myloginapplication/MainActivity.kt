@@ -18,6 +18,7 @@ import com.ayub.khosa.myloginapplication.api.RetrofitBuilder
 import com.ayub.khosa.myloginapplication.room.MainActivityRepository
 import com.ayub.khosa.myloginapplication.ui.NavigationRoutes
 import com.ayub.khosa.myloginapplication.ui.authenticatedGraph
+import com.ayub.khosa.myloginapplication.ui.screens.dashboard.MYPlayListScreen
 import com.ayub.khosa.myloginapplication.ui.theme.MyLoginApplicationTheme
 import com.ayub.khosa.myloginapplication.ui.unauthenticatedGraph
 import com.ayub.khosa.myloginapplication.utils.NetworkHelper
@@ -32,8 +33,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-                    MainScreenApp()
+                  //   MYPlayListScreen()
+                     MainScreenApp()
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.ayub.khosa.myloginapplication.api
 
 import com.ayub.khosa.myloginapplication.model.APIResponce
+import com.ayub.khosa.myloginapplication.model.APIResponceListPRODUCTS
 import com.ayub.khosa.myloginapplication.model.APIResponceUser
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -47,4 +48,10 @@ interface ApiService {
     @Field("_logout_server") is_logout: String,
     @Field("lemail") email: String
     ): APIResponce
+
+    @FormUrlEncoded
+    @POST("/ecommerce-website-master/authmobile.php")
+    suspend fun get_ListPRODUCTS(
+        @Field("ListPRODUCTS") listPRODUCTS: String
+    ): APIResponceListPRODUCTS
 }
