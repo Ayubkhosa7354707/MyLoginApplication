@@ -91,57 +91,9 @@ fun PlaylistScreen(
             )
 
 
-            CustomDefaultBtn(
-                btnText = "Error",
-                onClick = { viewModel.seterrorMessage(myinputdata.value) })
 
 
         }
-
-        DoneButton(viewModel.geterrorMessage())
-
-        Text(text = "You entered: ${myinputdata.value}")
-
-
-        CustomTextField(
-            label = "Name",
-            keyboardType = KeyboardType.Text,
-            visualTransformation = VisualTransformation.None,
-            onChange = { newText ->
-                myinputdata.value = newText.text
-            }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            "Error --> " + viewModel.geterrorMessage(),
-            color = Color.White,
-            fontSize = 20.sp,
-            fontStyle = FontStyle.Italic,
-            fontFamily = FontFamily.SansSerif,
-            modifier = Modifier
-                .background(Color(0xFFAED581))
-                .padding(4.dp)
-        )
-        Text(
-            "Is busy --> " + viewModel.get_is_busy(),
-            color = Color.Red,
-            fontSize = 20.sp,
-            fontStyle = FontStyle.Normal,
-            fontFamily = FontFamily.Cursive,
-            modifier = Modifier
-                .background(Color(0xFF9CCC65))
-                .padding(4.dp)
-        )
-        Text(
-            "Data --> " + mydatalist.size,
-            color = Color.Yellow,
-            fontSize = 20.sp,
-            fontStyle = FontStyle.Italic,
-            fontFamily = FontFamily.Monospace,
-            modifier = Modifier
-                .background(Color(0xFF8BC34A))
-                .padding(4.dp)
-        )
 
         Spacer(modifier = Modifier.height(8.dp))
 

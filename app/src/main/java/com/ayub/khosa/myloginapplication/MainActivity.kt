@@ -33,8 +33,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                  //   MYPlayListScreen()
-                     MainScreenApp()
+                    //  MYPlayListScreen()
+                      MainScreenApp()
                 }
             }
         }

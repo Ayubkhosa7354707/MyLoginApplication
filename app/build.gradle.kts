@@ -95,4 +95,11 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("androidx.room:room-compiler:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
+
+
+// Stripe-android
+    implementation("com.stripe:stripe-android:21.7.1")
+
+    // Stripe server SDK/Lib
+    implementation("com.stripe:stripe-java:28.4.0")
 }

@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,9 +29,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import coil.compose.rememberAsyncImagePainter
 import com.ayub.khosa.myloginapplication.common.TextExample
+import com.ayub.khosa.myloginapplication.ui.screens.dashboard.stripe.MyStripeScreen
 import com.ayub.khosa.myloginapplication.ui.theme.MyLoginApplicationTheme
 import com.ayub.khosa.myloginapplication.ui.theme.Purple80
 import com.ayub.khosa.myloginapplication.ui.theme.PurpleGrey40
@@ -57,40 +60,15 @@ fun ProductItem(
     var mydescription = rememberSaveable { mutableStateOf(description) }
 
 
+    var show_stripe = rememberSaveable { mutableStateOf(false) }
 
 
 
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.clickable {
-            showToast(context, myname.value + " clicked ")
-            // AlertDialog.Builder(context).setMessage("test").show()
-
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(".."+myname.value+".."+myprice.value)
-            builder.setMessage("Confurm you want to buy  "+myname.value)
-            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-                Toast.makeText(context,
-                    "yes I like it.."+myname.value+".."+myprice.value , Toast.LENGTH_SHORT).show()
 
 
 
-            }
 
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
-                Toast.makeText(context,
-                    "No it is costly .."+myname.value+".."+myprice.value, Toast.LENGTH_SHORT).show()
-            }
-
-//            builder.setNeutralButton("Maybe") { dialog, which ->
-//                Toast.makeText(context,
-//                    "Maybe", Toast.LENGTH_SHORT).show()
-//            }
-            builder.show()
-        }
-    ) {
-//          LoadingDialogView()
 
         Row(
             modifier = Modifier
@@ -123,10 +101,26 @@ fun ProductItem(
                     "Name :" +
                             myname.value
                 )
-                TextExample(
-                    "Price :" +
-                            myprice.value + "PKR"
-                )
+//                TextExample(
+//                    "Price :" +
+//                            myprice.value + "PKR"
+//                )
+
+
+                if(!show_stripe.value){
+                Text(
+                    modifier = Modifier
+                        .clickable {
+                            show_stripe.value=true
+                        }
+                        .padding(10.dp)
+                        .fillMaxWidth(),
+                    text = myprice.value + "PKR",
+                    color = Color.Blue, fontSize = 18.sp,
+                )}else{
+                    MyStripeScreen(myprice.value)
+                }
+
                 TextExample(
                     "Category :" +
                             mycategory.value
@@ -139,7 +133,7 @@ fun ProductItem(
             }
 
 
-        }
+
 
 
     }
@@ -167,50 +161,3 @@ fun ProductItemPreview() {
 }
 
 
-@Composable
-fun LoadingDialogView( ) {
-
-
-    var openDialog = true
-
-    if (openDialog) {
-
-
-        Dialog(onDismissRequest = { openDialog = false }) {
-
-
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp)
-                    .background(Purple80),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-
-                androidx.compose.material3.TextButton(onClick = {
-                    openDialog = false
-                }) {
-
-                    androidx.compose.material3.Text(
-                        "Not Now",
-                        fontWeight = FontWeight.Bold,
-                        color = PurpleGrey40,
-                        modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
-                    )
-                }
-                androidx.compose.material3.TextButton(onClick = {
-                    openDialog = false
-                }) {
-                    androidx.compose.material3.Text(
-                        "Allow",
-                        fontWeight = FontWeight.ExtraBold,
-                        color = Color.Black,
-                        modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
-                    )
-
-
-                }
-            }
-        }
-    }
-}
