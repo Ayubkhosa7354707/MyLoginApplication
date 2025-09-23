@@ -57,13 +57,13 @@ fun NavGraphBuilder.unauthenticatedGraph(navController: NavController) {
             LoginScreen(
                 viewModel,
                 onNavigateToRegistration = {
-                    navController.navigate(route = NavigationRoutes.Unauthenticated.Registration.route+"/${it}")
+                    navController.navigate(route = NavigationRoutes.Unauthenticated.Registration.route + "/${it}")
                 },
                 onNavigateToForgotPassword = {
-                    navController.navigate(route = NavigationRoutes.Unauthenticated.ForgotPassword.route+"/${it}")
+                    navController.navigate(route = NavigationRoutes.Unauthenticated.ForgotPassword.route + "/${it}")
                 },
                 onNavigateToAuthenticatedRoute = {
-                    navController.navigate(route = NavigationRoutes.Authenticated.Dashboard.route+"/${it}") {
+                    navController.navigate(route = NavigationRoutes.Authenticated.Dashboard.route + "/${it}") {
                         popUpTo(route = NavigationRoutes.Unauthenticated.NavigationRoute.route) {
                             inclusive = true
                         }
@@ -73,7 +73,8 @@ fun NavGraphBuilder.unauthenticatedGraph(navController: NavController) {
         }
 
         // Registration
-        composable(route = NavigationRoutes.Unauthenticated.Registration.route+"/{email}",
+        composable(
+            route = NavigationRoutes.Unauthenticated.Registration.route + "/{email}",
             arguments = (listOf(
                 navArgument("email") {
                     type = NavType.StringType
@@ -105,11 +106,9 @@ fun NavGraphBuilder.unauthenticatedGraph(navController: NavController) {
         }
 
 
-
-
-
         // ForgotPassword
-        composable(route = NavigationRoutes.Unauthenticated.ForgotPassword.route+"/{email}",
+        composable(
+            route = NavigationRoutes.Unauthenticated.ForgotPassword.route + "/{email}",
             arguments = (listOf(
                 navArgument("email") {
                     type = NavType.StringType
@@ -130,7 +129,8 @@ fun NavGraphBuilder.unauthenticatedGraph(navController: NavController) {
 
             }
 
-            val viewModel: ForgotPasswordViewModel = ForgotPasswordViewModel(repository, networkHelper)
+            val viewModel: ForgotPasswordViewModel =
+                ForgotPasswordViewModel(repository, networkHelper)
 
             ForgotPasswordScreen(
                 viewModel, email as String,
@@ -150,15 +150,16 @@ fun NavGraphBuilder.unauthenticatedGraph(navController: NavController) {
 fun NavGraphBuilder.authenticatedGraph(navController: NavController) {
     navigation(
         route = NavigationRoutes.Authenticated.Dashboard.route,
-        startDestination = NavigationRoutes.Authenticated.Dashboard.route+"/{email}"
+        startDestination = NavigationRoutes.Authenticated.Dashboard.route + "/{email}"
     ) {
         // Dashboard
-        composable(route = NavigationRoutes.Authenticated.Dashboard.route  +"/{email}",
+        composable(
+            route = NavigationRoutes.Authenticated.Dashboard.route + "/{email}",
             arguments = (listOf(
-            navArgument("email") {
-                type = NavType.StringType
-            }
-        ))) {
+                navArgument("email") {
+                    type = NavType.StringType
+                }
+            ))) {
             val email = it.arguments!!.get("email")
             val context = LocalContext.current
             val networkHelper: NetworkHelper = NetworkHelper(context.applicationContext)
@@ -176,7 +177,7 @@ fun NavGraphBuilder.authenticatedGraph(navController: NavController) {
 
             val viewModel: DashboardViewModel = DashboardViewModel(repository, networkHelper)
 
-            DashboardScreen(viewModel,email as String , onNavigateBack = {
+            DashboardScreen(viewModel, email as String, onNavigateBack = {
                 navController.navigateUp()
             })
         }

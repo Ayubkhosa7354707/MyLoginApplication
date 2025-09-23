@@ -5,14 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -24,10 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -41,12 +36,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ayub.khosa.myloginapplication.common.TitleText
 import com.ayub.khosa.myloginapplication.components.CustomDefaultBtn
-import com.ayub.khosa.myloginapplication.ui.screens.unauthenticated.registration.RegistrationScreen
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel = viewModel(), onNavigateToRegistration: (email: String) -> Unit,
-                onNavigateToForgotPassword: (email: String) -> Unit,
-                onNavigateToAuthenticatedRoute: (email: String) -> Unit, modifier: Modifier = Modifier){
+fun LoginScreen(
+    viewModel: LoginViewModel = viewModel(), onNavigateToRegistration: (email: String) -> Unit,
+    onNavigateToForgotPassword: (email: String) -> Unit,
+    onNavigateToAuthenticatedRoute: (email: String) -> Unit, modifier: Modifier = Modifier
+) {
 
 
     val textValue by viewModel.textValue.collectAsState()
@@ -56,68 +52,65 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel(), onNavigateToRegistratio
     var input_password by rememberSaveable { mutableStateOf("") }
     var isPasswordVisible by rememberSaveable { mutableStateOf(false) }
     TitleText(Modifier.padding(top = 30.dp, start = 10.dp, end = 10.dp), "Login Screen")
-        Column(modifier = modifier.padding(top = 80.dp, start = 10.dp, end = 10.dp)) {
+    Column(modifier = modifier.padding(top = 80.dp, start = 10.dp, end = 10.dp)) {
 
-            OutlinedTextField(
-                value = input_email,singleLine = true,
-                onValueChange = { newText -> input_email = newText },
-                label = { Text("Enter your email") },
-                modifier = Modifier.fillMaxWidth()
-            )
+        OutlinedTextField(
+            value = input_email, singleLine = true,
+            onValueChange = { newText -> input_email = newText },
+            label = { Text("Enter your email") },
+            modifier = Modifier.fillMaxWidth()
+        )
 
 
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth(),singleLine = true,
-                visualTransformation = if (isPasswordVisible) {
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth(),
+            singleLine = true,
+            visualTransformation = if (isPasswordVisible) {
 
-                    VisualTransformation.None
+                VisualTransformation.None
 
-                } else {
+            } else {
 
-                    PasswordVisualTransformation()
+                PasswordVisualTransformation()
 
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                value = input_password,
-                onValueChange = { newText ->
-                    input_password = newText
-                },
-                label = {
-                    Text(text = "Password")
-                },
-                trailingIcon = {
-                    if (isPasswordVisible) {
-                        IconButton(onClick = { isPasswordVisible = false }) {
-                            Icon(
-                                imageVector = Icons.Filled.Visibility,
-                                contentDescription = "hide_password"
-                            )
-                        }
-                    } else {
-                        IconButton(
-                            onClick = { isPasswordVisible = true }) {
-                            Icon(
-                                imageVector = Icons.Filled.VisibilityOff,
-                                contentDescription = "hide_password"
-                            )
-                        }
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            value = input_password,
+            onValueChange = { newText ->
+                input_password = newText
+            },
+            label = {
+                Text(text = "Password")
+            },
+            trailingIcon = {
+                if (isPasswordVisible) {
+                    IconButton(onClick = { isPasswordVisible = false }) {
+                        Icon(
+                            imageVector = Icons.Filled.Visibility,
+                            contentDescription = "hide_password"
+                        )
                     }
-                },
-                placeholder = { Text(text = "Type password here") },
-                shape = RoundedCornerShape(percent = 0),
-            )
+                } else {
+                    IconButton(
+                        onClick = { isPasswordVisible = true }) {
+                        Icon(
+                            imageVector = Icons.Filled.VisibilityOff,
+                            contentDescription = "hide_password"
+                        )
+                    }
+                }
+            },
+            placeholder = { Text(text = "Type password here") },
+            shape = RoundedCornerShape(percent = 0),
+        )
 
-            Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-
-
-
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
 
 
             CustomDefaultBtn(
@@ -141,43 +134,40 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel(), onNavigateToRegistratio
                 text = "Forgot Password ?",
                 color = Color.Blue, fontSize = 15.sp,
             )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
+        }
+        Spacer(modifier = Modifier.height(10.dp))
 
 
-            //Register
-            Text(
-                modifier = Modifier
-                    .clickable {
-                        onNavigateToRegistration(input_email)
-                    }
-                    .padding(10.dp)
-                    .fillMaxWidth(),
-                text = "Create new Account ",
-                color = Color.Blue, fontSize = 15.sp,
-            )
+        //Register
+        Text(
+            modifier = Modifier
+                .clickable {
+                    onNavigateToRegistration(input_email)
+                }
+                .padding(10.dp)
+                .fillMaxWidth(),
+            text = "Create new Account ",
+            color = Color.Blue, fontSize = 15.sp,
+        )
 
 
+        // Results........
+        Text(
+            text = "" + textValue,
+            color = Color.Black,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold, modifier = Modifier
+                .padding(10.dp)
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
 
-            // Results........
-            Text(
-                text = "" + textValue,
-                color = Color.Black,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold, modifier = Modifier
-                    .padding(10.dp)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-
-            if (toAuthenticatedRoute) {
-                onNavigateToAuthenticatedRoute(input_email)
-            }
-
-
+        if (toAuthenticatedRoute) {
+            onNavigateToAuthenticatedRoute(input_email)
         }
 
 
+    }
 
 
 }
@@ -187,7 +177,7 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel(), onNavigateToRegistratio
 fun LoginScreenPreview() {
     LoginScreen(
         viewModel(), onNavigateToAuthenticatedRoute = {},
-        onNavigateToRegistration = {  },
+        onNavigateToRegistration = { },
         onNavigateToForgotPassword = {}
     )
 }

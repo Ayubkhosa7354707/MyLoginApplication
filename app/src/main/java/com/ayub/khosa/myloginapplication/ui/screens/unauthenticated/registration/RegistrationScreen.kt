@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,7 +23,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -38,11 +36,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ayub.khosa.myloginapplication.common.TitleText
 import com.ayub.khosa.myloginapplication.components.CustomDefaultBtn
-import com.ayub.khosa.myloginapplication.ui.screens.dashboard.DashboardScreen
 
 @Composable
 fun RegistrationScreen(
-    viewModel: RegistrationViewModel,email: String,
+    viewModel: RegistrationViewModel, email: String,
     onNavigateBack: () -> Boolean
 ) {
 
@@ -60,10 +57,8 @@ fun RegistrationScreen(
     Column(modifier = Modifier.padding(top = 80.dp, start = 10.dp, end = 10.dp)) {
 
 
-
-
         OutlinedTextField(
-            value = input_email,singleLine = true,
+            value = input_email, singleLine = true,
             onValueChange = { email -> input_email = email },
             label = { Text("Enter your email") },
             modifier = Modifier.fillMaxWidth()
@@ -71,7 +66,8 @@ fun RegistrationScreen(
 
         OutlinedTextField(
             modifier = Modifier
-                .fillMaxWidth(),singleLine = true,
+                .fillMaxWidth(),
+            singleLine = true,
             visualTransformation = if (isPasswordVisible) {
 
                 VisualTransformation.None
@@ -112,13 +108,13 @@ fun RegistrationScreen(
         )
 
         OutlinedTextField(
-            value = input_first_name,singleLine = true,
+            value = input_first_name, singleLine = true,
             onValueChange = { newText -> input_first_name = newText },
             label = { Text("First Name") },
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
-            value = input_last_name,singleLine = true,
+            value = input_last_name, singleLine = true,
             onValueChange = { newText -> input_last_name = newText },
             label = { Text("Last Name") },
             modifier = Modifier.fillMaxWidth()
@@ -173,6 +169,6 @@ fun RegistrationScreenPreview() {
     RegistrationScreen(
         viewModel = viewModel(),
         email = ("PayU"),
-        onNavigateBack = {true},
+        onNavigateBack = { true },
     )
 }

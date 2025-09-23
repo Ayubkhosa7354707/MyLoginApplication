@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.common.ktx)
+    implementation(libs.androidx.databinding.common)
+    implementation(libs.androidx.databinding.runtime)
+    implementation(libs.androidx.compose.ui.text)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -92,4 +95,11 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("androidx.room:room-compiler:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
+
+
+// Stripe-android
+    implementation("com.stripe:stripe-android:21.7.1")
+
+    // Stripe server SDK/Lib
+    implementation("com.stripe:stripe-java:28.4.0")
 }

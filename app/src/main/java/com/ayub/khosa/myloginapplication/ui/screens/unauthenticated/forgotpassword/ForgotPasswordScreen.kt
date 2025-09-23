@@ -26,11 +26,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ayub.khosa.myloginapplication.common.TitleText
 import com.ayub.khosa.myloginapplication.components.CustomDefaultBtn
-import com.ayub.khosa.myloginapplication.ui.screens.unauthenticated.registration.RegistrationScreen
 
 
 @Composable
-    fun ForgotPasswordScreen(viewModel: ForgotPasswordViewModel = viewModel() ,email: String, onNavigateBack: () -> Boolean, modifier: Modifier = Modifier){
+fun ForgotPasswordScreen(
+    viewModel: ForgotPasswordViewModel = viewModel(),
+    email: String,
+    onNavigateBack: () -> Boolean,
+    modifier: Modifier = Modifier
+) {
     val textValue by viewModel.textValue.collectAsState()
 
     var input_email by rememberSaveable { mutableStateOf("") }
@@ -43,7 +47,7 @@ import com.ayub.khosa.myloginapplication.ui.screens.unauthenticated.registration
 
             Spacer(modifier = Modifier.height(10.dp))
             OutlinedTextField(
-                value = input_email,singleLine = true,
+                value = input_email, singleLine = true,
                 onValueChange = { email -> input_email = email },
                 label = { Text("Enter your email") },
                 modifier = Modifier.fillMaxWidth()
@@ -90,14 +94,12 @@ import com.ayub.khosa.myloginapplication.ui.screens.unauthenticated.registration
 }
 
 
-
-
 @Preview(showBackground = true)
 @Composable
 fun ForgotPasswordScreenPreview() {
     ForgotPasswordScreen(
         viewModel = viewModel(),
         email = ("PayU"),
-        onNavigateBack = {true},
+        onNavigateBack = { true },
     )
 }

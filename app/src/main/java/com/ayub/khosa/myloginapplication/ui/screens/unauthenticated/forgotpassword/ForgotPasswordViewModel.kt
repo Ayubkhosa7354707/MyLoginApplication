@@ -20,9 +20,8 @@ class ForgotPasswordViewModel @Inject constructor(
     val textValue: StateFlow<String> = _uiStatetextValue
     fun updateState(newValue: String) {
         _uiStatetextValue.value = newValue
-        PrintLogs.printD(" ForgotPasswordViewModel updateState "+newValue)
+        PrintLogs.printD(" ForgotPasswordViewModel updateState " + newValue)
     }
-
 
 
     fun forgotPasswordViewModel_user_forgetpassword_Clicked(email: String) {
@@ -48,9 +47,9 @@ class ForgotPasswordViewModel @Inject constructor(
                             PrintLogs.printD(" onResponse Success data  :  " + response.data)
 
                             //  `$verify_url` =  "https://ayubkhosa.com/ecommerce-website-master/verify.php?id=' . \$id . '&code=' . \$code"
-                             updateState("   "+response.data)
+                            updateState("   " + response.data)
                         } else {
-                            updateState( response.error)
+                            updateState(response.error)
                         }
                     } else {
                         updateState(" No Internet .... ")
@@ -62,12 +61,11 @@ class ForgotPasswordViewModel @Inject constructor(
 
                 }
             } catch (e: Exception) {
-                updateState(" Exception : "+e.message)
+                updateState(" Exception : " + e.message)
                 PrintLogs.printD("Exception  " + e.message)
             }
         }
     }
-
 
 
 }
