@@ -1,10 +1,10 @@
-package com.ayub.khosa.myloginapplication.ui.screens.dashboard.productsScreen
+package com.ayub.khosa.myloginapplication.ui.screens.dashboard.categoryScreen
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ayub.khosa.myloginapplication.model.ListPRODUCTS
-import com.ayub.khosa.myloginapplication.model.PRODUCT
+import com.ayub.khosa.myloginapplication.model.CATEGORY
+import com.ayub.khosa.myloginapplication.model.ListCATEGORYS
 import com.ayub.khosa.myloginapplication.room.MainActivityRepository
 import com.ayub.khosa.myloginapplication.utils.NetworkHelper
 import com.ayub.khosa.myloginapplication.utils.PrintLogs
@@ -12,20 +12,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-class ProductsViewModel @Inject constructor(
+class CategorysViewModel
+@Inject constructor(
     private val repository: MainActivityRepository,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
 
-    private var myproducts: ArrayList<PRODUCT> = ArrayList<PRODUCT>()
-    private var _tasks = MutableStateFlow(myproducts)
-    val tasks: ArrayList<PRODUCT>
+    private var mycategorys: ArrayList<CATEGORY> = ArrayList<CATEGORY>()
+    private var _tasks = MutableStateFlow(mycategorys)
+    val tasks: ArrayList<CATEGORY>
         get() = _tasks.value
 
 
-    fun getproductsItems(): List<PRODUCT> {
+    fun getCategorysItems(): List<CATEGORY> {
 
         return tasks
     }
@@ -66,37 +66,34 @@ class ProductsViewModel @Inject constructor(
         }
     }
 
-    fun onClickCallgetAllProducts() {
-        PrintLogs.printD("onClickCallgetAllProducts  ")
+    fun onClickCallgetAllCategorys() {
+        PrintLogs.printD("onClickCallgetAllCategorys  ")
         set_is_busy(true)
         viewModelScope.launch {
             try {
                 if (networkHelper.isNetworkConnected()) {
 
                     seterrorMessage("Iternet is OKay")
-                    val response = repository.getAllProducts()
+                    val response = repository.getAllCategorys()
                     PrintLogs.printD(" onResponse Success :  " + response.response)
                     PrintLogs.printD(" onResponse Success :  " + response.data)
                     PrintLogs.printD(" onResponse Success :  " + response.error)
 
                     if (response.response == "Success") {
-                        val data = kotlin.collections.ArrayList<PRODUCT>()
-                        response.data.products.forEach { it ->
-                            PrintLogs.printD(" id of product : " + it.id)
-                            PrintLogs.printD(" name of product : " + it.name)
-                            PrintLogs.printD(" product_id of product : " + it.product_id)
-                            PrintLogs.printD(" category of product : " + it.category)
-                            PrintLogs.printD(" img of product : " + it.img)
-                            PrintLogs.printD(" price of product : " + it.price)
+                        val data = kotlin.collections.ArrayList<CATEGORY>()
+                        response.data.categorys.forEach { it ->
+                            PrintLogs.printD(" id of category : " + it.id)
+                            PrintLogs.printD(" name of category : " + it.name)
+                            PrintLogs.printD(" img of category : " + it.img)
 
                             data.add(it)
-                            addProductinDB(it)
+                            addCategoryinDB(it)
                         }
 
                         PrintLogs.printD(" data.size ----  " + data.size)
-                        var listproduct: ListPRODUCTS = ListPRODUCTS(data)
+                        var listcategory: ListCATEGORYS = ListCATEGORYS(data)
                         _tasks.value = data
-                        PrintLogs.printD(" listproduct.products.size ----  " + listproduct.products.size)
+                        PrintLogs.printD(" listcategory.categorys.size ----  " + listcategory.categorys.size)
 
                     } else {
                         seterrorMessage(response.error)
@@ -115,28 +112,26 @@ class ProductsViewModel @Inject constructor(
         }
 
 
-        PrintLogs.printD("onClickCallgetAllProducts  ")
+        PrintLogs.printD("onClickCallgetAllCategorys  ")
     }
 
-    fun onClickCallgetProducts_DB() {
+    fun onClickCallgetCategory_DB() {
 
         set_is_busy(true)
-        PrintLogs.printD(" -----------  onClickCallgetProducts_DB   -------------")
+        PrintLogs.printD(" -----------  onClickCallgetCategory_DB   -------------")
 
         try {
-            val response = repository.getProducts_DB()
+            val response = repository.getCategrys_DB()
 
             seterrorMessage("Database is OKay")
-            response.products.forEach {
-                PrintLogs.printD(" name of product : " + it.name)
-                PrintLogs.printD(" product_id of product : " + it.product_id)
-                PrintLogs.printD(" category of product : " + it.category)
-                PrintLogs.printD(" img of product : " + it.img)
-                PrintLogs.printD(" price of product : " + it.price)
+            response.categorys.forEach {
+                PrintLogs.printD(" name of Categry : " + it.name)
+                PrintLogs.printD(" Categry_id of Categry : " + it.category_id)
+                PrintLogs.printD(" img of Categry : " + it.img)
 
             }
 
-            _tasks.value = response.products
+            _tasks.value = response.categorys
             set_is_busy(false)
         } catch (e: Exception) {
             seterrorMessage("Exception  " + e.message.toString())
@@ -145,18 +140,18 @@ class ProductsViewModel @Inject constructor(
         }
 
 
-        PrintLogs.printD(" -----------  onClickCallgetProducts_DB END  -------------")
+        PrintLogs.printD(" -----------  onClickCallgetCategory_DB END  -------------")
 
 
     }
 
-    fun addProductinDB(product: PRODUCT) {
+    fun addCategoryinDB(category: CATEGORY) {
         //   set_is_busy(true)
         try {
-            if (repository.fetchProductByName(product.name, product.product_id) != null) {
-                repository.updateProductinDB(product)
+            if (repository.fetchCategoryByName(category.name, category.category_id) != null) {
+                repository.updateCategoryinDB(category)
             } else {
-                repository.insertProductinDB(product)
+                repository.insertCategoryinDB(category)
             }
 
         } catch (e: Exception) {

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DashboardViewModel@Inject constructor(
+class DashboardViewModel @Inject constructor(
     private val repository: MainActivityRepository,
     private val networkHelper: NetworkHelper
 ) :
@@ -20,7 +20,7 @@ class DashboardViewModel@Inject constructor(
     val textValue: StateFlow<String> = _uiStatetextValue
     fun updateState(newValue: String) {
         _uiStatetextValue.value = newValue
-        PrintLogs.printD(" DashboardViewModel updateState "+newValue)
+        PrintLogs.printD(" DashboardViewModel updateState " + newValue)
     }
 
     init {
@@ -31,35 +31,36 @@ class DashboardViewModel@Inject constructor(
     fun user_logout(email: String) {
         updateState("")
 
-         PrintLogs.printD("user_logout  email " + email)
+        PrintLogs.printD("user_logout  email " + email)
 
 
         viewModelScope.launch {
             try {
-            if (networkHelper.isNetworkConnected()) {
-                val response = repository.userlogout(email)
-                PrintLogs.printD(" onResponse Success :  " + response.response)
-                PrintLogs.printD(" onResponse Success :  " + response.data)
-                PrintLogs.printD(" onResponse Success :  " + response.error)
-                if (response.response == "Success") {
-                    PrintLogs.printD(" onResponse Success data  :  " + response.data)
-                    updateState(response.data.toString())
+                if (networkHelper.isNetworkConnected()) {
+                    val response = repository.userlogout(email)
+                    PrintLogs.printD(" onResponse Success :  " + response.response)
+                    PrintLogs.printD(" onResponse Success :  " + response.data)
+                    PrintLogs.printD(" onResponse Success :  " + response.error)
+                    if (response.response == "Success") {
+                        PrintLogs.printD(" onResponse Success data  :  " + response.data)
+                        updateState(response.data.toString())
+                    } else {
+                        updateState(response.error.toString())
+
+                    }
+
+
                 } else {
-                    updateState(response.error.toString())
-
+                    updateState("No internet ....  ")
+                    PrintLogs.printD("No internet ....   ")
                 }
+            } catch (e: Exception) {
 
+                updateState("Exception  " + e.message)
+                PrintLogs.printD("Exception  " + e.message)
 
-            }else{
-                updateState("No internet ....  " )
-                PrintLogs.printD("No internet ....   "  )
             }
-        }  catch (e: Exception) {
-
-            updateState("Exception  " + e.message)
-            PrintLogs.printD("Exception  " + e.message)
-
-        }}
+        }
     }
 
 

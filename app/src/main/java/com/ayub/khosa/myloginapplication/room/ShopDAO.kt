@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.ayub.khosa.myloginapplication.model.CATEGORY
 import com.ayub.khosa.myloginapplication.model.PRODUCT
 import com.ayub.khosa.myloginapplication.model.USER
 
@@ -40,6 +41,23 @@ interface ShopDAO {
 
     @Update
     fun updateUSER(user: USER)
+
+
+    @Insert
+    fun insertCategory(category: CATEGORY)
+
+    @Query("Select * from categorys")
+    fun getAllCategorys(): List<CATEGORY>
+
+
+    @Query("SELECT * FROM categorys WHERE name = :name AND category_id =:category_id")
+    fun fetchCategoryByName(name: String, category_id: String): CATEGORY
+
+    @Update
+    fun updateCategory(category: CATEGORY)
+
+    @Delete
+    fun deleteCategory(category: CATEGORY)
 
 
 }

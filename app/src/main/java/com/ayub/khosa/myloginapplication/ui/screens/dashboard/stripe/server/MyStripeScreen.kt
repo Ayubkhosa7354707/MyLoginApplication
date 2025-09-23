@@ -24,7 +24,7 @@ import com.stripe.android.paymentsheet.PaymentSheetResult
 import com.stripe.android.paymentsheet.rememberPaymentSheet
 
 @Composable
-fun MyStripeScreen(price :String ,modifier: Modifier = Modifier) {
+fun MyStripeScreen(price: String, modifier: Modifier = Modifier) {
     val paymentSheet = rememberPaymentSheet(::onPaymentSheetResult)
 
     val context = LocalContext.current
@@ -34,9 +34,9 @@ fun MyStripeScreen(price :String ,modifier: Modifier = Modifier) {
 
     var rnds = (100..10000).random() // generated random from 100 to 10000 included
 
-    var amount :Long =  price.toLong() *100
+    var amount: Long = price.toLong() * 100
 
-    PrintLogs.printD("  amount "+amount)
+    PrintLogs.printD("  amount " + amount)
     // Get server configs
     val serverConfig = ServerConfigs.serverConfig(amount)
 
@@ -64,8 +64,8 @@ fun MyStripeScreen(price :String ,modifier: Modifier = Modifier) {
                 }
             }) {
 
-            var amountRs: Double =  amount /100.0
-            Text("PAY "+amountRs+"PKR")
+            var amountRs: Double = amount / 100.0
+            Text("PAY " + amountRs + "PKR")
         }
     }
 }

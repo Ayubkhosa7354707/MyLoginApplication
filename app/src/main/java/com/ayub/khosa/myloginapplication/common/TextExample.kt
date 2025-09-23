@@ -2,7 +2,6 @@ package com.ayub.khosa.myloginapplication.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -18,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ayub.khosa.myloginapplication.ui.theme.MyCustomFont
 
 // below is the Composable function
 // which we have created for our Text.
@@ -27,8 +27,8 @@ fun TextExample(data_string: String) {
         // we are using column to align
         // our textview to center of the screen.
 
-                modifier = Modifier
-                .wrapContentSize(),
+        modifier = Modifier
+            .wrapContentSize(),
 
         // below line is used for specifying
         // horizontal arrangement.
@@ -67,7 +67,7 @@ fun TextExample(data_string: String) {
 
             // font family is use to change
             // our font family to SansSerif.
-            fontFamily = FontFamily.SansSerif,
+            fontFamily = MyCustomFont,
 
             // letter spacing is use to
             // provide between letters.

@@ -6,11 +6,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.ayub.khosa.myloginapplication.model.CATEGORY
 import com.ayub.khosa.myloginapplication.model.PRODUCT
 import com.ayub.khosa.myloginapplication.model.USER
 import com.ayub.khosa.myloginapplication.room.ShopDAO
 
-@Database(entities = [PRODUCT::class, USER::class], version = 1, exportSchema = false)
+@Database(
+    entities = [PRODUCT::class, CATEGORY::class, USER::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 

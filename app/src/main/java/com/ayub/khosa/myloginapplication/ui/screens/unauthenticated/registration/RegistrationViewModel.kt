@@ -1,15 +1,11 @@
 package com.ayub.khosa.myloginapplication.ui.screens.unauthenticated.registration
 
-import androidx.compose.animation.AnimatedContentScope
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavBackStackEntry
 import com.ayub.khosa.myloginapplication.model.USER
 import com.ayub.khosa.myloginapplication.room.MainActivityRepository
 import com.ayub.khosa.myloginapplication.utils.NetworkHelper
 import com.ayub.khosa.myloginapplication.utils.PrintLogs
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,14 +19,14 @@ class RegistrationViewModel @Inject constructor(
     ViewModel() {
 
 
-
-  //  var user = MutableLiveData<USER>()
+    //  var user = MutableLiveData<USER>()
     private val _uiStatetextValue = MutableStateFlow("")
     val textValue: StateFlow<String> = _uiStatetextValue
 
     fun updateState(newValue: String) {
         _uiStatetextValue.value = newValue
     }
+
     init {
         PrintLogs.printD("RegistrationViewModel init")
     }
@@ -67,29 +63,29 @@ class RegistrationViewModel @Inject constructor(
 
                             PrintLogs.printD(" onResponse Success data  :  " + response.data)
 
-                             //  `$verify_url` =  "https://ayubkhosa.com/ecommerce-website-master/verify.php?id=' . \$id . '&code=' . \$code"
+                            //  `$verify_url` =  "https://ayubkhosa.com/ecommerce-website-master/verify.php?id=' . \$id . '&code=' . \$code"
 
-                         //   user.postValue(response.data)
+                            //   user.postValue(response.data)
                             addUserinDB(response.data)
 
 
-                            updateState("User Created ... Please verify your Email " )
+                            updateState("User Created ... Please verify your Email ")
 
                         } else {
-                            updateState(" "+response.error)
+                            updateState(" " + response.error)
                         }
                     } else {
-                        updateState("No Internet ... " )
+                        updateState("No Internet ... ")
                     }
                 } else {
                     PrintLogs.printD("Please Enter user email , password  , first name and last name to sing up")
 
-                    updateState("Please Enter user email , password  , first name and last name to sign up" )
+                    updateState("Please Enter user email , password  , first name and last name to sign up")
 
 
                 }
             } catch (e: Exception) {
-                updateState("Exception  " + e.message )
+                updateState("Exception  " + e.message)
                 PrintLogs.printD("Exception  " + e.message)
 
             }
@@ -108,7 +104,7 @@ class RegistrationViewModel @Inject constructor(
             }
         } catch (e: Exception) {
 
-            updateState("Exception "+e.message)
+            updateState("Exception " + e.message)
             PrintLogs.printD("Exception: ${e.message}")
         }
     }

@@ -17,26 +17,25 @@ class LoginViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-//    var user = MutableLiveData<USER>()
+    //    var user = MutableLiveData<USER>()
     private val _uiStatetextValue = MutableStateFlow("")
     val textValue: StateFlow<String> = _uiStatetextValue
     fun updateState(newValue: String) {
         _uiStatetextValue.value = newValue
-        PrintLogs.printD(" LoginViewModel updateState "+newValue)
+        PrintLogs.printD(" LoginViewModel updateState " + newValue)
     }
+
     private val _ToAuthenticatedRoute = MutableStateFlow(false)
     val toAuthenticatedRoute: StateFlow<Boolean> = _ToAuthenticatedRoute
     fun toAuthenticatedRouteState(newValue: Boolean) {
         _ToAuthenticatedRoute.value = newValue
-        PrintLogs.printD(" LoginViewModel ToAuthenticatedRouteState "+newValue)
+        PrintLogs.printD(" LoginViewModel ToAuthenticatedRouteState " + newValue)
     }
-
 
 
     init {
         PrintLogs.printD("LoginViewModel init")
     }
-
 
 
     fun LoginViewModel_user_loginClicked(email: String, password: String) {
@@ -56,7 +55,7 @@ class LoginViewModel @Inject constructor(
                             email, password
                         )
 
-                      //   updateState(response.toString())
+                        //   updateState(response.toString())
 
 
                         PrintLogs.printD(" onResponse Success :  " + response.response)
@@ -70,9 +69,9 @@ class LoginViewModel @Inject constructor(
                             PrintLogs.printD(" onResponse Success data user_id :  " + response.data.user_id)
                             PrintLogs.printD(" onResponse Success data password :  " + response.data.password)
                             PrintLogs.printD(" onResponse Success data tokencode :  " + response.data.tokenCode)
-                         //   updateState(response.data.toString())
+                            //   updateState(response.data.toString())
 
-                          //  user.postValue(response.data)
+                            //  user.postValue(response.data)
                             addUserinDB(response.data)
 
                             updateState(response.data.email_id)
@@ -100,6 +99,7 @@ class LoginViewModel @Inject constructor(
 
 
     }
+
     fun addUserinDB(user: USER) {
         PrintLogs.printD(" LoginViewModel addUserinDB ")
         try {
@@ -110,7 +110,7 @@ class LoginViewModel @Inject constructor(
             }
         } catch (e: Exception) {
 
-            updateState("Exception "+e.message)
+            updateState("Exception " + e.message)
             PrintLogs.printD("Exception: ${e.message}")
         }
     }
