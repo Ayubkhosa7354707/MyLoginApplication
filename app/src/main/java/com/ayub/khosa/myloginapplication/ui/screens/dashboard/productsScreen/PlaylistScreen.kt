@@ -46,7 +46,7 @@ fun PlaylistScreen(
     modifier: Modifier = Modifier
 ) {
     var mydatalist = rememberMutableStateListOf<PRODUCT>()
-    if (mydatalist.size == 0) {
+    if (mydatalist.isEmpty()) {
         viewModel.onClickCallgetAllProducts()
         viewModel.getproductsItems().forEach { it ->
             LaunchedEffect(Unit) {

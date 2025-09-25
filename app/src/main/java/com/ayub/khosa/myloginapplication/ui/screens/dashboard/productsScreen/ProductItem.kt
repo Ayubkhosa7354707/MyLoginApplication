@@ -7,13 +7,17 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import coil.compose.rememberAsyncImagePainter
 import com.ayub.khosa.myloginapplication.api.RetrofitBuilder
 import com.ayub.khosa.myloginapplication.common.TextExample
@@ -54,8 +59,6 @@ fun ProductItem(
     var mycategory = rememberSaveable { mutableStateOf(category) }
 
     var mydescription = rememberSaveable { mutableStateOf(description) }
-
-
     var show_stripe = rememberSaveable { mutableStateOf(false) }
 
 
@@ -115,7 +118,11 @@ fun ProductItem(
                 )
             } else {
                 if (viewModel.isNetworkConnected()) {
-                    MyStripeScreen(myprice.value)
+//                    MyStripeScreen(myprice.value)
+
+                    CustomAlertDialog(myname.value,myprice.value,onDismissRequest = { show_stripe.value = false })
+
+
                 } else {
                     val context = LocalContext.current
                     showToast(context, "NO Internet... ")
@@ -175,3 +182,28 @@ fun ProductItemPreview() {
 }
 
 
+@Composable
+fun CustomAlertDialog(productname:String , productprice:String ,onDismissRequest: () -> Unit) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        // Your custom content goes here
+        Surface(
+            shape = MaterialTheme.shapes.medium,
+            color = MaterialTheme.colorScheme.surface
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Custom Dialog Title", style = MaterialTheme.typography.titleLarge)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = " Do You want to purchase $productname")
+                MyStripeScreen(productprice)
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(onClick = onDismissRequest) {
+                    Text("Dismiss")
+                }
+            }
+        }
+    }
+}

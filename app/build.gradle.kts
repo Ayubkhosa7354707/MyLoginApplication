@@ -60,6 +60,8 @@ dependencies {
     implementation(libs.androidx.databinding.common)
     implementation(libs.androidx.databinding.runtime)
     implementation(libs.androidx.compose.ui.text)
+    implementation(libs.androidx.ui)
+    implementation(libs.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
