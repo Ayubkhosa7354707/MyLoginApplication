@@ -25,7 +25,7 @@ object ServerConfigs {
 
         // Pass your api key from: https://dashboard.stripe.com/apikeys
         Stripe.apiKey =
-            "apiKey"
+            ""
 
         // Create customer object
         val customerParams = CustomerCreateParams.builder().build()
@@ -52,7 +52,7 @@ object ServerConfigs {
             "paymentIntent" to paymentIntent.clientSecret,
             "ephemeralKey" to ephemeralKey.secret,
             "customer" to customer.id,
-            "publishableKey" to "publishableKey " // You can get his value from stripe tutorial
+            "publishableKey" to "" // You can get his value from stripe tutorial
         )
 
         stripePaymentInfo

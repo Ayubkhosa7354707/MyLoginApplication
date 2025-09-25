@@ -3,6 +3,7 @@ package com.ayub.khosa.myloginapplication.ui.screens.dashboard.stripe
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,7 +52,7 @@ fun MyStripeScreen(price: String, modifier: Modifier = Modifier) {
         PaymentConfiguration.init(context, publishableKey ?: "")
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = modifier.wrapContentSize()) {
         Button(
             modifier = Modifier.align(Alignment.Center),
             shape = RectangleShape,
